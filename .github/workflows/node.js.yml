@@ -1,4 +1,4 @@
-name: Node.js CI and Deploy to GoDaddy Plesk
+name: Vite React CI and Deploy to GoDaddy Plesk
 
 on:
   push:
@@ -25,13 +25,14 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install  # Use npm install instead of npm ci for Vite
 
-      - name: Build React App
-        run: npm run build --if-present
+      - name: Build Vite React App
+        run: npm run build
 
-      - name: Run Tests
-        run: npm test
+      # Uncomment the next step if you have tests set up
+      # - name: Run Tests
+      #   run: npm test
 
       - name: Deploy to GoDaddy Plesk via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -39,5 +40,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./build/
-          server-dir: /httpdocs/  # Change this based on your Plesk directory
+          local-dir: ./dist/   # Change from ./build/ to ./dist/ for Vite
+          server-dir: /httpdocs/  # Update based on your Plesk setup
