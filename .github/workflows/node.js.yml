@@ -25,14 +25,10 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm install  # Use npm install instead of npm ci for Vite
+        run: npm install
 
       - name: Build Vite React App
         run: npm run build
-
-      # Uncomment the next step if you have tests set up
-      # - name: Run Tests
-      #   run: npm test
 
       - name: Deploy to GoDaddy Plesk via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -40,5 +36,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/   # Change from ./build/ to ./dist/ for Vite
-          server-dir: /httpdocs/  # Update based on your Plesk setup
+          local-dir: ./dist/
+          server-dir: /httpdocs/
